@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:erpdb
+    username: erpdev
+    password: password123
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+
+#spring:
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/mydatabase
+#    username: root
+#    password: admin
+#    driverClassName: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    spring.jpa.database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
