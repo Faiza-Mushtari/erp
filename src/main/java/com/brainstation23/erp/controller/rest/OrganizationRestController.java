@@ -14,6 +14,7 @@ import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -37,6 +38,7 @@ public class OrganizationRestController {
 		return ResponseEntity.ok(domains.map(organizationMapper::domainToResponse));
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@Operation(summary = "Get Single Organization")
 	@GetMapping("{id}")
 	public ResponseEntity<OrganizationResponse> getOne(@PathVariable UUID id) {
@@ -45,6 +47,7 @@ public class OrganizationRestController {
 		return ResponseEntity.ok(organizationMapper.domainToResponse(domain));
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@Operation(summary = "Create Single Organization")
 	@PostMapping
 	public ResponseEntity<Void> createOne(@RequestBody @Valid CreateOrganizationRequest createRequest) {
@@ -54,6 +57,7 @@ public class OrganizationRestController {
 		return ResponseEntity.created(location).build();
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@Operation(summary = "Update Single Organization")
 	@PutMapping("{id}")
 	public ResponseEntity<Void> updateOne(@PathVariable UUID id,
@@ -63,6 +67,7 @@ public class OrganizationRestController {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@Operation(summary = "Delete Single Organization")
 	@DeleteMapping("{id}")
 	public ResponseEntity<Void> deleteOne(@PathVariable UUID id) {

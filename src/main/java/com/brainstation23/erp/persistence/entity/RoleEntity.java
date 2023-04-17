@@ -8,21 +8,22 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
-@Entity(name = EntityConstant.ORGANIZATION)
+
+@Entity(name = EntityConstant.ROLE)
 @Getter
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrganizationEntity {
+@Table(name = "roles")
+public class RoleEntity {
 	@Id
 	@Type(type = "uuid-char")
 	private UUID id;
-	private String name;
-	private String code;
-
+	@Enumerated(EnumType.STRING)
+	@Column(length = 20)
+	private RoleType name;
 }
