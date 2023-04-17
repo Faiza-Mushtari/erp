@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
-	// TODO: handle exceptions globally
+    // TODO: handle exceptions globally
 
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
