@@ -1,5 +1,7 @@
 package com.brainstation23.erp.service;
 
+import com.brainstation23.erp.exception.custom.InvalidRequestException;
+import com.brainstation23.erp.exception.custom.OrganizationNotFoundException;
 import com.brainstation23.erp.exception.custom.custom.NotFoundException;
 import com.brainstation23.erp.mapper.OrganizationMapper;
 import com.brainstation23.erp.model.domain.Organization;
@@ -21,6 +23,9 @@ import java.util.UUID;
 @Service
 public class OrganizationService {
 	public static final String ORGANIZATION_NOT_FOUND = "Organization Not Found";
+
+	public static final String INVALID_REQUEST = "Invalid Request to create Organization";
+
 	private final OrganizationRepository organizationRepository;
 	private final OrganizationMapper organizationMapper;
 
@@ -31,7 +36,7 @@ public class OrganizationService {
 
 	public Organization getOne(UUID id) {
 		var entity = organizationRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException(ORGANIZATION_NOT_FOUND));
+				.orElseThrow(() -> new OrganizationNotFoundException(ORGANIZATION_NOT_FOUND));
 		return organizationMapper.entityToDomain(entity);
 	}
 
@@ -41,12 +46,14 @@ public class OrganizationService {
 				.setName(createRequest.getName())
 				.setCode(this.generateOrganizationCode());
 		var createdEntity = organizationRepository.save(entity);
-		return createdEntity.getId();
+		return organizationRepository.findById(createdEntity.getId())
+				.orElseThrow(() -> new InvalidRequestException(INVALID_REQUEST))
+				.getId();
 	}
 
 	public void updateOne(UUID id, UpdateOrganizationRequest updateRequest) {
 		var entity = organizationRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException(ORGANIZATION_NOT_FOUND));
+				.orElseThrow(() -> new OrganizationNotFoundException(ORGANIZATION_NOT_FOUND));
 		entity.setName(updateRequest.getName());
 		organizationRepository.save(entity);
 	}
