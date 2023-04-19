@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 @Slf4j
@@ -40,7 +41,9 @@ public class UserService {
 		var entity = new UserEntity();
 		entity.setId(UUID.randomUUID())
 				.setUsername(createRequest.getUsername())
-				.setEmail(createRequest.getUsername());
+				.setEmail(createRequest.getEmail())
+				.setRole(createRequest.getRole())
+				.setPassword(createRequest.getPassword());
 		var createdEntity = userRepository.save(entity);
 		return createdEntity.getId();
 	}
@@ -49,7 +52,9 @@ public class UserService {
 		var entity = userRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
 		entity.setUsername(updateRequest.getUsername())
-				.setEmail(updateRequest.getEmail());
+				.setEmail(updateRequest.getEmail())
+				.setRole(updateRequest.getRole())
+				.setPassword(updateRequest.getPassword());
 		userRepository.save(entity);
 	}
 

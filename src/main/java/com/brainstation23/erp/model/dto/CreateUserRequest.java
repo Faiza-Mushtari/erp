@@ -1,6 +1,5 @@
 package com.brainstation23.erp.model.dto;
 
-import com.brainstation23.erp.persistence.entity.RoleType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +18,10 @@ public class CreateUserRequest {
 	@Schema(description = "User Email", example = "user@bs23.com")
 	private String email;
 
-	@Schema(description = "User Role", example = "Admin")
-	private RoleType name;
+	@Schema(description = "User Role", example = "ROLE_ADMIN")
+	private String role;
+
+	@Schema(description = "User Password", example = "password123")
+	private String password;
+
 }

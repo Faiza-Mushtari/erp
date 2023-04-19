@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @ToString
@@ -19,4 +20,12 @@ public class UserResponse {
 
 	@Schema(description = "User Email", example = "user@bs23.com")
 	private String email;
+
+	@NotNull
+	@Schema(description = "User Role", example = "ROLE_ADMIN")
+	private  String role;
+
+	@NotNull
+	@Schema(description = "User Password", example = "password123")
+	private String password;
 }

@@ -9,11 +9,16 @@ import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface RoleMapper {
+
     Role entityToDomain(RoleEntity entity);
 
-    RoleResponse domainToResponse(Role role);
+    RoleResponse domainToResponse(Role domain);
 
     default Integer map(UUID uuid) {
         return uuid != null ? uuid.hashCode() : null;
     }
 }
+
+
+
+

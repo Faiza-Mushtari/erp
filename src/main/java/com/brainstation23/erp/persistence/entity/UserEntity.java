@@ -19,20 +19,18 @@ import java.util.UUID;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users",
-		uniqueConstraints = {
-				@UniqueConstraint(columnNames = "username"),
-				@UniqueConstraint(columnNames = "email")
-		})
 public class UserEntity {
 	@Id
 	@Type(type = "uuid-char")
+	@JoinColumn(name="user_id")
 	private UUID id;
 	private String username;
 	private String email;
 	private String password;
+	private String role;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(name = "user_roles",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id"))

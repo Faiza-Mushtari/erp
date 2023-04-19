@@ -30,7 +30,6 @@ public class RoleRestController {
 	private final RoleService roleService;
 	private final RoleMapper roleMapper;
 
-	@PreAuthorize("hasRole('ADMIN')")
 	@Operation(summary = "Get All Roles")
 	@GetMapping
 	public ResponseEntity<Page<RoleResponse>> getAll(@ParameterObject Pageable pageable) {
@@ -62,7 +61,7 @@ public class RoleRestController {
 	@Operation(summary = "Update Single Role")
 	@PutMapping("{id}")
 	public ResponseEntity<Void> updateOne(@PathVariable UUID id,
-			@RequestBody @Valid UpdateRoleRequest updateRequest) {
+										  @RequestBody @Valid UpdateRoleRequest updateRequest) {
 		log.info("Updating an Role({}): {} ", id, updateRequest);
 		roleService.updateOne(id, updateRequest);
 		return ResponseEntity.noContent().build();
