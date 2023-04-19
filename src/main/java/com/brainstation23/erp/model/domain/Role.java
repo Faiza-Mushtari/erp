@@ -1,6 +1,5 @@
 package com.brainstation23.erp.model.domain;
 
-import com.brainstation23.erp.persistence.entity.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,5 +22,6 @@ public class Role {
 	private UUID id;
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20)
-	private RoleType name;
+	private String role;
+
 }

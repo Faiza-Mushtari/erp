@@ -9,8 +9,9 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
-
 
 @Entity(name = EntityConstant.ROLE)
 @Getter
@@ -18,12 +19,18 @@ import java.util.UUID;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "roles")
 public class RoleEntity {
 	@Id
 	@Type(type = "uuid-char")
+	@JoinColumn(name="role_id")
 	private UUID id;
-	@Enumerated(EnumType.STRING)
-	@Column(length = 20)
-	private RoleType name;
+	@Column(unique=true)
+	private String role;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinTable(name = "user_roles",
+			joinColumns = @JoinColumn(name = "role_id"),
+			inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private Set<UserEntity> users = new HashSet<>();
 }
