@@ -20,6 +20,9 @@ repositories {
 	mavenCentral()
 }
 
+jar {
+	enabled = false
+}
 
 dependencies {
 	// spring boot starter
