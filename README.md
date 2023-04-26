@@ -51,7 +51,7 @@ As an Employee user, I can
 - [ ] Write Unit Test
 - [ ] Setup different database driver in different profile
 - [ ] Upgrade to Spring Boot 3
-- [ ] Deployment (profile: develop)
+- [X] Deployment (profile: develop) [https://erp-production-4b88.up.railway.app/]
 - [X] Update Documentation (README.md)
 
 ## How to Build & Run
